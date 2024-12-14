@@ -7,6 +7,8 @@ import attendance.service.InitService;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 
+import java.time.LocalTime;
+
 public class AttendanceController {
     private final InputView inputView;
     private final OutputView outputView;
@@ -55,5 +57,7 @@ public class AttendanceController {
 
     public void processSelectOne(Crews crews, AttendanceInfos attendanceInfos) {
         crews.checkContains(inputView.selectCrew());
+        LocalTime attendanceTime = inputView.inputTime();
+
     }
 }

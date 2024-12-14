@@ -3,6 +3,7 @@ package attendance.domain;
 import attendance.util.ErrorMessage;
 import attendance.util.FileParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Crews {
@@ -17,7 +18,12 @@ public class Crews {
     }
 
     public void checkContains(String name) {
-        if (!crews.contains(Crew.of(name))) {
+        List<String> names = new ArrayList<>();
+        for (Crew crew : crews) {
+            String nameForCrew = crew.getName();
+            names.add(nameForCrew);
+        }
+        if (!names.contains(name)) {
             throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_NICKNAME_EXCEPTION.getMessage());
         }
     }

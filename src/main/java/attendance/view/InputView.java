@@ -7,6 +7,9 @@ import attendance.util.InputReader;
 import attendance.util.OutputWriter;
 import camp.nextstep.edu.missionutils.DateTimes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -17,12 +20,11 @@ public class InputView implements InputReader, OutputWriter {
         for (Function function : Function.values()) {
             displayFormat("%s. %s", function.getSelectName(), function.getOptionName());
         }
-        displayNewLine();
-
         return Function.getFunctionFrom(inputMessage());
     }
 
     public String selectCrew() {
+        displayNewLine();
         displayMessageByLine("닉네임을 입력해 주세요.");
         String input = inputMessage();
         validateBlank(input);
@@ -32,6 +34,24 @@ public class InputView implements InputReader, OutputWriter {
 
     private void validateBlank(String input) {
         if (input.isBlank()) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT_EXCEPTION.getMessage());
+        }
+    }
+
+    public LocalTime inputTime() {
+        displayMessageByLine("등교 시간을 입력해 주세요.");
+        String input = inputMessage();
+        validateBlank(input);
+        validateTime(input);
+        return LocalTime.parse(input);
+    }
+
+    private void validateTime(String input) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+            simpleDateFormat.setLenient(false);
+            simpleDateFormat.parse(input);
+        } catch (ParseException parseException) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT_EXCEPTION.getMessage());
         }
     }
