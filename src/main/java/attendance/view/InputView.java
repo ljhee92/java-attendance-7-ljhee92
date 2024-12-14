@@ -1,6 +1,8 @@
 package attendance.view;
 
+import attendance.domain.Crew;
 import attendance.domain.Function;
+import attendance.util.ErrorMessage;
 import attendance.util.InputReader;
 import attendance.util.OutputWriter;
 import camp.nextstep.edu.missionutils.DateTimes;
@@ -15,7 +17,22 @@ public class InputView implements InputReader, OutputWriter {
         for (Function function : Function.values()) {
             displayFormat("%s. %s", function.getSelectName(), function.getOptionName());
         }
+        displayNewLine();
 
         return Function.getFunctionFrom(inputMessage());
+    }
+
+    public String selectCrew() {
+        displayMessageByLine("닉네임을 입력해 주세요.");
+        String input = inputMessage();
+        validateBlank(input);
+        return input;
+
+    }
+
+    private void validateBlank(String input) {
+        if (input.isBlank()) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT_FORMAT_EXCEPTION.getMessage());
+        }
     }
 }

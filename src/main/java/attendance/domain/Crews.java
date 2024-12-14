@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import attendance.util.ErrorMessage;
 import attendance.util.FileParser;
 
 import java.util.List;
@@ -13,6 +14,12 @@ public class Crews {
 
     public static Crews initCrews() {
         return new Crews(FileParser.initCrews());
+    }
+
+    public void checkContains(String name) {
+        if (!crews.contains(Crew.of(name))) {
+            throw new IllegalArgumentException(ErrorMessage.NOT_EXIST_NICKNAME_EXCEPTION.getMessage());
+        }
     }
 
     @Override

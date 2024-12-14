@@ -21,18 +21,19 @@ public class AttendanceController {
     public void start() {
         Crews crews = initService.getCrews();
         AttendanceInfos attendanceInfos = initService.getAttendanceInfos();
+
         while (true) {
             Function selectedFunction = inputView.selectFunction();
             if (selectedFunction.equals(Function.QUIT)) {
                 break;
             }
-            run(selectedFunction);
+            run(selectedFunction, crews, attendanceInfos);
         }
     }
 
-    private void run(Function selectedFunction) {
+    private void run(Function selectedFunction, Crews crews, AttendanceInfos attendanceInfos) {
         if (selectedFunction == Function.ATTENDANCE) {
-            System.out.println("1");
+            processSelectOne(crews, attendanceInfos);
             return;
         }
 
@@ -50,5 +51,9 @@ public class AttendanceController {
             System.out.println("4");
             return;
         }
+    }
+
+    public void processSelectOne(Crews crews, AttendanceInfos attendanceInfos) {
+        crews.checkContains(inputView.selectCrew());
     }
 }
