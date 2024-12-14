@@ -3,21 +3,29 @@ package attendance.controller;
 import attendance.domain.AttendanceInfos;
 import attendance.domain.Crews;
 import attendance.domain.Function;
+import attendance.domain.OperatingDayOfWeek;
+import attendance.service.AttendanceService;
 import attendance.service.InitService;
+import attendance.util.ErrorMessage;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import camp.nextstep.edu.missionutils.DateTimes;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class AttendanceController {
     private final InputView inputView;
     private final OutputView outputView;
     private final InitService initService;
+    private final AttendanceService attendanceService;
 
-    public AttendanceController(InputView inputView, OutputView outputView, InitService initService) {
+    public AttendanceController(InputView inputView, OutputView outputView,
+                                InitService initService, AttendanceService attendanceService) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.initService = initService;
+        this.attendanceService = attendanceService;
     }
 
     public void start() {
@@ -56,8 +64,9 @@ public class AttendanceController {
     }
 
     public void processSelectOne(Crews crews, AttendanceInfos attendanceInfos) {
+        attendanceService.checkDateAndTime();
         crews.checkContains(inputView.selectCrew());
         LocalTime attendanceTime = inputView.inputTime();
-
+        attendanceService.checkTime(attendanceTime);
     }
 }
