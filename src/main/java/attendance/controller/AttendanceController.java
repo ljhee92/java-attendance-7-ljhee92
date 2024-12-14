@@ -1,17 +1,15 @@
 package attendance.controller;
 
+import attendance.domain.AttendanceDTO;
 import attendance.domain.AttendanceInfos;
+import attendance.domain.Crew;
 import attendance.domain.Crews;
 import attendance.domain.Function;
-import attendance.domain.OperatingDayOfWeek;
 import attendance.service.AttendanceService;
 import attendance.service.InitService;
-import attendance.util.ErrorMessage;
 import attendance.view.InputView;
 import attendance.view.OutputView;
-import camp.nextstep.edu.missionutils.DateTimes;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class AttendanceController {
@@ -64,9 +62,13 @@ public class AttendanceController {
     }
 
     public void processSelectOne(Crews crews, AttendanceInfos attendanceInfos) {
-        attendanceService.checkDateAndTime();
-        crews.checkContains(inputView.selectCrew());
+        attendanceService.checkDate();
+        String name = inputView.selectCrew();
+        crews.checkContains(name);
+        Crew crew = Crew.of(name);
         LocalTime attendanceTime = inputView.inputTime();
         attendanceService.checkTime(attendanceTime);
+        AttendanceDTO attendanceDTO = attendanceService.attendance(crew, attendanceInfos, attendanceTime);
+        outputView.displayAttendanceInfo(attendanceDTO);
     }
 }

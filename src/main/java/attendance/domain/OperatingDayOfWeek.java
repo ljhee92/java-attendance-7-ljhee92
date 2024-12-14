@@ -1,8 +1,8 @@
 package attendance.domain;
 
-import attendance.util.ErrorMessage;
 import camp.nextstep.edu.missionutils.DateTimes;
 
+import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -31,7 +31,7 @@ public enum OperatingDayOfWeek {
     }
 
     public static boolean checkOperatingDayOfWeek() {
-        String today = DateTimes.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN).toUpperCase();
+        String today = DateTimes.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.KOREAN);
         for (OperatingDayOfWeek operatingDayOfWeek : OperatingDayOfWeek.values()) {
             if (operatingDayOfWeek.korean.equals(today)) {
                 return true;

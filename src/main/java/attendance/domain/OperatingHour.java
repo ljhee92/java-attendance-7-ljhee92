@@ -3,11 +3,12 @@ package attendance.domain;
 import camp.nextstep.edu.missionutils.DateTimes;
 
 import java.time.LocalTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 public enum OperatingHour {
-    START_TIME_OF_MON(LocalTime.of(13, 0, 0)),
-    START_TIME(LocalTime.of(9, 0, 0)),
-    END_TIME(LocalTime.of(18, 0, 0))
+    START_TIME(LocalTime.of(8, 0, 0)),
+    END_TIME(LocalTime.of(23, 0, 0))
     ;
 
     private final LocalTime localTime;
@@ -21,12 +22,10 @@ public enum OperatingHour {
     }
 
     public static boolean checkOperatingHour(LocalTime inputTime) {
-        LocalTime time = DateTimes.now().toLocalTime();
-        for (OperatingHour operatingHour : OperatingHour.values()) {
-            if (operatingHour.localTime.equals(time) && operatingHour.localTime.equals(inputTime)) {
-                return true;
-            }
+        if (!inputTime.isBefore(START_TIME.localTime) && !inputTime.isAfter(END_TIME.localTime)) {
+            return true;
         }
+
         return false;
     }
 }
