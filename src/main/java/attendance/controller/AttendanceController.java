@@ -1,5 +1,7 @@
 package attendance.controller;
 
+import attendance.domain.AttendanceInfos;
+import attendance.domain.Crews;
 import attendance.service.InitService;
 import attendance.view.InputView;
 import attendance.view.OutputView;
@@ -16,6 +18,7 @@ public class AttendanceController {
     }
 
     public void run() {
-
+        Crews crews = initService.getCrews();
+        AttendanceInfos attendanceInfos = initService.getAttendanceInfos();
     }
 }
