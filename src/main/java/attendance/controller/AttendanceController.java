@@ -46,17 +46,17 @@ public class AttendanceController {
         }
 
         if (selectedFunction == Function.ATTENDANCE_EDIT) {
-            System.out.println("2");
+            processSelectTwo(crews, attendanceInfos);
             return;
         }
 
         if (selectedFunction == Function.ATTENDANCE_CHECK) {
-            System.out.println("3");
+            processSelectThree(crews, attendanceInfos);
             return;
         }
 
         if (selectedFunction == Function.WEEDING_CHECK) {
-            System.out.println("4");
+            processSelectFour(crews, attendanceInfos);
             return;
         }
     }
@@ -70,5 +70,17 @@ public class AttendanceController {
         attendanceService.checkTime(attendanceTime);
         AttendanceDTO attendanceDTO = attendanceService.attendance(crew, attendanceInfos, attendanceTime);
         outputView.displayAttendanceInfo(attendanceDTO);
+    }
+
+    public void processSelectTwo(Crews crews, AttendanceInfos attendanceInfos) {
+
+    }
+
+    public void processSelectThree(Crews crews, AttendanceInfos attendanceInfos) {
+
+    }
+
+    public void processSelectFour(Crews crews, AttendanceInfos attendanceInfos) {
+
     }
 }

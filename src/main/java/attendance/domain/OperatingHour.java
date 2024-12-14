@@ -1,10 +1,6 @@
 package attendance.domain;
 
-import camp.nextstep.edu.missionutils.DateTimes;
-
 import java.time.LocalTime;
-import java.time.format.TextStyle;
-import java.util.Locale;
 
 public enum OperatingHour {
     START_TIME(LocalTime.of(8, 0, 0)),

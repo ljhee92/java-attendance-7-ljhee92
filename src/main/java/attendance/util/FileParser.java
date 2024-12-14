@@ -1,6 +1,7 @@
 package attendance.util;
 
 import attendance.domain.AttendanceInfo;
+import attendance.domain.AttendanceStatus;
 import attendance.domain.Crew;
 
 import java.time.LocalDate;
@@ -51,7 +52,7 @@ public class FileParser {
                 if (name.equals(crew.getName())) {
                     LocalDate date = LocalDate.parse(list[INFO_INDEX].split(" ")[DATE_INDEX]);
                     LocalTime time = LocalTime.parse(list[INFO_INDEX].split(" ")[TIME_INDEX]);
-                    AttendanceInfo attendanceInfo = AttendanceInfo.of(date, time);
+                    AttendanceInfo attendanceInfo = AttendanceInfo.of(date, time, AttendanceStatus.of(date, time));
                     attendanceInfosByCrew.add(attendanceInfo);
                 }
             }

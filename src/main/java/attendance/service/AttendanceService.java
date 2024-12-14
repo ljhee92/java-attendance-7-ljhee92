@@ -1,6 +1,7 @@
 package attendance.service;
 
 import attendance.domain.AttendanceDTO;
+import attendance.domain.AttendanceInfo;
 import attendance.domain.AttendanceInfos;
 import attendance.domain.Crew;
 import attendance.domain.Crews;
@@ -10,6 +11,7 @@ import attendance.util.ErrorMessage;
 import camp.nextstep.edu.missionutils.DateTimes;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class AttendanceService {
     public void checkDate() {
@@ -28,10 +30,11 @@ public class AttendanceService {
 
     public AttendanceDTO attendance(Crew crew, AttendanceInfos attendanceInfos, LocalTime inputTime) {
         attendanceInfos.attendance(crew, inputTime);
-        return getAttendanceDTO(inputTime);
+        return getAttendanceDTO(attendanceInfos.getAttendanceInfosOf(crew), inputTime);
     }
 
-    private AttendanceDTO getAttendanceDTO(LocalTime attendanceTime) {
-        return new AttendanceDTO(DateTimes.now().toLocalDate(), attendanceTime);
+    private AttendanceDTO getAttendanceDTO(List<AttendanceInfo> attendanceInfoByCrew, LocalTime inputTime) {
+        return new AttendanceDTO(DateTimes.now().toLocalDate(), inputTime,
+                attendanceInfoByCrew.getFirst().getAttendanceStatus().getStatus());
     }
 }
